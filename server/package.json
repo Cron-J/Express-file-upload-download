@@ -1,0 +1,24 @@
+{
+  "name": "Express-file-upload-download",
+  "description": "Express-file-upload-download",
+  "version": "0.1.0",
+  "main": "server",
+  "engines": {
+    "node": ">=0.10.22"
+  },
+  "dependencies": {
+    "body-parser": "^1.10.0",
+    "express": "~3.3.4",
+    "walk": "^2.3.9"
+  },
+  "keywords": [
+    "express",
+    "file upload",
+    "file download",
+    "file list"
+  ],
+  "author": {
+    "name": "sonipandey",
+    "email": "sonipandey.71@gmail.com"
+  }
+}
