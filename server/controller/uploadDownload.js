@@ -24,27 +24,30 @@ exports.display_form = function(req, res) {
 
 exports.uploadFile = function(req, res) {
     var tmp_path = req.files.file.path;
-    checkFileExist();
-    var target_path = Config.MixInsideFolder + req.files.file.name;
-    var is = fs.createReadStream(tmp_path);
-    var os = fs.createWriteStream(target_path);
-    is.pipe(os);
-    is.on('end', function() {
-        fs.unlinkSync(tmp_path);
+    checkFileExist(function(){
+        var target_path = Config.MixInsideFolder + req.files.file.name;
+        var is = fs.createReadStream(tmp_path);
+        var os = fs.createWriteStream(target_path);
+        is.pipe(os);
+        is.on('end', function() {
+            fs.unlinkSync(tmp_path);
+        });
+        res.send('File uploaded to: ' + target_path);
     });
-    res.send('File uploaded to: ' + target_path);
+    
 };
 
 /*
  * Check File existence and create if not exist
  */
 
-var checkFileExist = function() {
+var checkFileExist = function(callback) {
     fs.exists(Config.publicFolder, function(exists) {
         if (exists === false) fs.mkdirSync(Config.publicFolder);
 
         fs.exists(Config.MixFolder, function(exists) {
             if (exists === false) fs.mkdirSync(Config.MixFolder);
+            callback();
         });
     });
 };
